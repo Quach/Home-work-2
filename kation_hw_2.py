@@ -84,8 +84,9 @@ def eval_forth(cmd_str):
         #        return
         #except Exception as inst:
         #    print inst.args[0]
-    if len(cmd_args) == 2:
-        if cmd_args[0] == "put":
+        raise SyntaxError("There is no such comand")
+    if cmd_args[0] == "put":
+        if len(cmd_args) == 2:
             try:
                 int_input_arg = int(cmd_args[1])
                 put(int_input_arg)
@@ -96,6 +97,13 @@ def eval_forth(cmd_str):
                     if input_arg.find('"') == -1:
                         put(input_arg)
                         return
+        else:
+            input_arg = cmd_str[4:]
+            if (input_arg[0] is '"') and (input_arg[-1] is '"'):
+                input_arg = input_arg[1:-1]
+                if input_arg.find('"') == -1:
+                    put(input_arg)
+                    return
     raise SyntaxError("There is no such comand")
 
 def main():
